@@ -1,4 +1,4 @@
-package com.github.wxl.swipeswitch;
+package com.github.wxl.swipeswitch.view;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -53,6 +53,8 @@ public class SwipeSwitch extends View {
     private boolean slideable;
 
     private Bitmap bitmap;
+
+    private StatusListener listener;
 
     public SwipeSwitch(Context context) {
         super(context);
@@ -234,16 +236,16 @@ public class SwipeSwitch extends View {
             public void onAnimationEnd(Animator animation) {
                 if (toRight) {
                     SwipeSwitch.this.isOpen = true;
-//                    if(SwipeView.this.listener != null) {
-//                        SwipeView.this.listener.open();
-//                    }
+                    if(SwipeSwitch.this.listener != null) {
+                        SwipeSwitch.this.listener.statusOpen();
+                    }
 
                     SwipeSwitch.this.frontRect_left_begin = SwipeSwitch.this.max_left;
                 } else {
                     SwipeSwitch.this.isOpen = false;
-//                    if(SwipeView.this.listener != null) {
-//                        SwipeView.this.listener.close();
-//                    }
+                    if(SwipeSwitch.this.listener != null) {
+                        SwipeSwitch.this.listener.statusClose();
+                    }
 
                     SwipeSwitch.this.frontRect_left_begin = SwipeSwitch.this.min_left;
                 }
@@ -265,7 +267,16 @@ public class SwipeSwitch extends View {
         this.slideable = slideable;
     }
 
+    public void setStatusListener(StatusListener listener) {
+        this.listener = listener;
+    }
+
     public void setFrontBitmap(int resId) {
         bitmap = BitmapFactory.decodeResource(getResources(), resId);
+    }
+
+    public interface StatusListener {
+        void statusOpen();
+        void statusClose();
     }
 }

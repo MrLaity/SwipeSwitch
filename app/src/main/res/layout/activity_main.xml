@@ -5,7 +5,7 @@
     tools:context=".MainActivity"
     android:background="#ffffff">
 
-    <com.github.wxl.swipeswitch.SwipeSwitch
+    <com.github.wxl.swipeswitch.view.SwipeSwitch
         android:id="@+id/swipeView"
         android:layout_width="300dp"
         android:layout_height="70dp"
